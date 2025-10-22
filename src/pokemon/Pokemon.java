@@ -4,22 +4,22 @@ import java.util.Random;
 
 public abstract class Pokemon {
 	private String nom;
-	private int niveau;
+	private Random r = new Random();
+	private int niveau = r.nextInt(1, 11);
 	protected int hp;
 	private int atk;
 	private static int niveauMax = 10;
 	private TypePokemon type;
 
 	public Pokemon(String nom, TypePokemon type) {
-		Random r = new Random();
 		this.nom = nom;
-		this.niveau = r.nextInt(1, 11);
 		this.hp = 2 * niveau;
 		this.atk = (niveau / 2) + 1;
+		this.type=type;
 	}
 
 	public Boolean isKO() {
-		return hp == 0;
+		return hp <= 0;
 	}
 
 	public void soigner() {
@@ -29,8 +29,7 @@ public abstract class Pokemon {
 	public abstract void attaquer(Pokemon p);
 
 	public String toString() {
-		return "[Pokemon" + this.nom + "]: je m'appelle " + this.nom + "\n" + "je suis de niveau " + this.niveau + "\n"
-				+ "j'ai " + this.hp + " vie" + "\n" + "mon attaque de base est de " + this.atk;
+		return this.prefixe()+ " m'appelle "+this.nom+"\n"+"je suis de niveau "+this.niveau+"\n"+"j'ai "+this.hp+" vie"+"\n"+"mon attaque de base est de "+this.atk;
 	}
 
 	public void log(String texte) {
@@ -62,4 +61,11 @@ public abstract class Pokemon {
 	public TypePokemon getType() {
 		return this.type;
 	}
+	public void perdreVie(int i) {
+	    this.hp -= i;          // On retire les points de vie
+	    if (this.hp < 0) {
+	        this.hp = 0;       // On ne descend pas en dessous de 0
+	    }
+	}
+
 }

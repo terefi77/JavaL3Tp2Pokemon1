@@ -1,22 +1,19 @@
 package pokemon.pokemonType;
-
 import pokemon.Pokemon;
 import pokemon.TypePokemon;
-
-public class PokemonFeu extends Pokemon {
-	public PokemonFeu(String nom) {
-		super(nom, TypePokemon.FEU);
+public class PokemonEau extends Pokemon {
+	public PokemonEau(String nom) {
+		super(nom, TypePokemon.EAU);
 	}
-
 	public void subir(Pokemon p) {
 		switch(p.getType()){
-			case EAU: {
-					this.perdreVie((p.getAtk()*2));
+			case PLANTE:{ 
+					this.perdreVie(p.getAtk()*2);
 					log("Super Efficace");
 					break;
 			}
-			case FEU,PLANTE :{
-				 int i=(int)(p.getAtk()*0.5);
+			case FEU,EAU :{ 
+				int i=(int)(p.getAtk()*0.5);
 				this.perdreVie(i);
 				log("c'est pas très efficace");
 				break;
@@ -28,5 +25,4 @@ public class PokemonFeu extends Pokemon {
 		p.subir(this);
 		this.log("[Pokemon "+this.getNom()+"]: j'attqaue "+p.getNom()+" : "+this.getNom()+" vs "+p.getNom());
 	}
-	
 }
